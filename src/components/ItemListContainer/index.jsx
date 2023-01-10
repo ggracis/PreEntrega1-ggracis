@@ -1,12 +1,12 @@
 // Lista de productos
 import { SimpleGrid, Box, Heading } from "@chakra-ui/react";
-import ProductCard from "./ProductCard";
 
-function ItemListContainer({ productos, greeting }) {
+function ItemListContainer({ productos, greeting, ProductCard }) {
   return (
     <>
       <Box textAlign="center">
-        <Heading as="h1"
+        <Heading
+          as="h1"
           color="blue.400"
           fontSize="2xl"
           fontWeight="bold"

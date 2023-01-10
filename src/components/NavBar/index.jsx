@@ -1,6 +1,4 @@
-//Barra de navegación
 import React from "react";
-
 import { useState } from "react";
 import {
   Box,
@@ -17,14 +15,18 @@ import {
   MenuGroup,
   MenuItem,
   MenuDivider,
-  MenuOptionGroup,
-  MenuItemOption,
-  Spacer,
 } from "@chakra-ui/react";
-import CartWidget from "./CartWidget";
+import { ChevronDownIcon } from "@chakra-ui/icons";
 
-const NavBar = () => {
+function NavBar({ CartWidget, filter, setFilter }) {
   const [isOpen, setIsOpen] = useState(false);
+  const ETIQUETAS_CATEGORIAS = {
+    "": "Productos",
+    "men's clothing": "Hombre",
+    "women's clothing": "Mujer",
+    jewelery: "Joyas",
+    electronics: "Electrónica",
+  };
 
   return (
     <Flex
@@ -73,21 +75,45 @@ const NavBar = () => {
           <Button as={Link} to="/">
             Inicio
           </Button>
-
-          <Menu closeOnSelect={false}>
-            <MenuButton as={Button}>Productos</MenuButton>
+          <Menu>
+            <MenuButton
+              as={Button}
+              rightIcon={<ChevronDownIcon />}
+              value={filter}
+            >
+              {ETIQUETAS_CATEGORIAS[filter] || "Productos"}
+            </MenuButton>
             <MenuList>
-              <MenuOptionGroup title="Filtro" type="checkbox">
-                <MenuItemOption value="hombre">Hombre</MenuItemOption>
-                <MenuItemOption value="mujer">Mujer</MenuItemOption>
-                <MenuItemOption value="joyas">Joyas</MenuItemOption>
-                <MenuItemOption value="electronica">Electrónica</MenuItemOption>
-              </MenuOptionGroup>
-              <MenuDivider />
-              <MenuOptionGroup defaultValue="asc" title="Orden" type="radio">
-                <MenuItemOption value="asc">Ascendente</MenuItemOption>
-                <MenuItemOption value="desc">Descendente</MenuItemOption>
-              </MenuOptionGroup>
+              <MenuItem
+                value=""
+                onClick={(event) => setFilter(event.target.value)}
+              >
+                {ETIQUETAS_CATEGORIAS[""]}
+              </MenuItem>
+              <MenuItem
+                value="men's clothing"
+                onClick={(event) => setFilter(event.target.value)}
+              >
+                {ETIQUETAS_CATEGORIAS["men's clothing"]}
+              </MenuItem>
+              <MenuItem
+                value="women's clothing"
+                onClick={(event) => setFilter(event.target.value)}
+              >
+                {ETIQUETAS_CATEGORIAS["women's clothing"]}
+              </MenuItem>
+              <MenuItem
+                value="jewelery"
+                onClick={(event) => setFilter(event.target.value)}
+              >
+                {ETIQUETAS_CATEGORIAS["jewelery"]}
+              </MenuItem>
+              <MenuItem
+                value="electronics"
+                onClick={(event) => setFilter(event.target.value)}
+              >
+                {ETIQUETAS_CATEGORIAS["electronics"]}
+              </MenuItem>
             </MenuList>
           </Menu>
 
@@ -124,6 +150,6 @@ const NavBar = () => {
       </Box>
     </Flex>
   );
-};
+}
 
 export default NavBar;
